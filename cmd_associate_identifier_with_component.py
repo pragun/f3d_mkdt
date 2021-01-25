@@ -5,9 +5,7 @@ import adsk.core, adsk.fusion, adsk.cam, traceback
 import json, re
 from .common_defs import *
 
-
 handlers = []
-
 
 identifier_text_ids = ['identifier_text_%d'%(i,) for i in range(number_of_key_style_identifiers)]
 component_selection_ids = ['selected_component_%d'%(i,) for i in range(number_of_key_style_identifiers)]
