@@ -4,6 +4,7 @@
 import adsk.core, adsk.fusion, adsk.cam, traceback
 import json, re 
 from .cmd_associate_identifier_with_component import *
+from .cmd_edit_keyboard_layout import *
 
 handlers = []
 
@@ -24,19 +25,29 @@ def run(context):
             tbPanel.deleteMe()
         tbPanel = tbPanels.add('mechKbrdTools', 'MechKbrd Tools', 'Mechanical Keyboard', False)
         
-        # Empty panel can't be displayed. Add a command to the panel
-        cmdDef = ui.commandDefinitions.itemById('select_single_key_components')
-        if cmdDef:
-            cmdDef.deleteMe()
+        #Empty panel can't be displayed. Add a command to the panel
+        cmdDef1 = ui.commandDefinitions.itemById('select_single_key_components')
+        cmdDef2 = ui.commandDefinitions.itemById('edit_keyboard_layout')
+        if cmdDef1:
+            cmdDef1.deleteMe()
+
+        if cmdDef2:
+            cmdDef2.deleteMe()
         
-        cmdDef = ui.commandDefinitions.addButtonDefinition('select_single_key_components', 'Select Components for Single Key', 'Demo for new command')
+        cmdDef1 = ui.commandDefinitions.addButtonDefinition('select_single_key_components', 'Select Components for Single Key', 'Associate components in the documen with Key-Identifiers')
+        cmdDef2 = ui.commandDefinitions.addButtonDefinition('edit_keyboard_layout', 'Edit Keyboard Layout', 'Edit Keyboard Layout')
 
         # Connect to the command created event.
-        sampleCommandCreated = SelectSingleKeyComponentsCreatedEventHandler()
-        cmdDef.commandCreated.add(sampleCommandCreated)
-        handlers.append(sampleCommandCreated)
+        associate_identifier_with_key_cmd_created = SelectSingleKeyComponentsCreatedEventHandler()
+        cmdDef1.commandCreated.add(associate_identifier_with_key_cmd_created)
+        handlers.append(associate_identifier_with_key_cmd_created)
+
+        edit_keyboard_layout_cmd_created = EditKeyboardLayoutCreatedEventHandler()
+        cmdDef2.commandCreated.add(edit_keyboard_layout_cmd_created)
+        handlers.append(edit_keyboard_layout_cmd_created)
         
-        tbPanel.controls.addCommand(cmdDef)
+        tbPanel.controls.addCommand(cmdDef1)
+        tbPanel.controls.addCommand(cmdDef2)
 
         ui.messageBox('Mechanical Keyboard Design Tools Add-In Started')
 
