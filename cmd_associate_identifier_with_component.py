@@ -174,33 +174,8 @@ class SelectSingleKeyComponentsCreatedEventHandler(adsk.core.CommandCreatedEvent
          # Get the CommandInputs collection to create new command inputs.            
         inputs = cmd.commandInputs
 
-        if False:
-            list_key_style_identifier_texts = []
-            list_key_style_component_selection = []
-
-            associated_key_style_identifiers = []
-
-            attribs = design.findAttributes(attribute_group_name, identifiers_attrib_name)
-            print(attribs)
-            for attrib in attribs :
-                identifier_lst = json.loads(attrib.value)
-                print(identifier_lst)
-                for identifier in identifier_lst:
-                    if identifier in associated_key_style_identifiers:
-                        raise NameError("Duplicate Attribute found %s"%(identifier,))
-                    associated_key_style_identifiers.append(identifier)
-
-            unassociated_identifiers = set(default_key_style_identifiers) - set(associated_key_style_identifiers)
-            print(unassociated_identifiers)
-
-            key_style_identifier_suggestion_list = list(unassociated_identifiers)
-
         for i in range(number_of_key_style_identifiers):
-            txt = ''
-            #if i < len(key_style_identifier_suggestion_list):
-            #    txt = key_style_identifier_suggestion_list[i]
-
-            key_style_identifier_text = inputs.addStringValueInput(identifier_text_ids[i],'Key Identifier', txt)
+            key_style_identifier_text = inputs.addStringValueInput(identifier_text_ids[i],'Key Identifier', '')
             component_selection = inputs.addSelectionInput(component_selection_ids[i],'Component for Keys with above identifier','Select a component to be inserted for the keys identified with this identifier')
             display_txt = inputs.addTextBoxCommandInput(display_text_ids[i],':','',1,True)
             display_txt.isFullWidth = True
