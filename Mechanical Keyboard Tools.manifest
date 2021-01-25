@@ -1,0 +1,13 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"addin",
+	"id":	"61044c0d-95a8-46aa-86de-d9b85ce6ec3d",
+	"author":	"Pragun Goyal ",
+	"description":	{
+		"":	"This add-in contains several useful tools to design Mechanical Keyboards"
+	},
+	"version":	"0.01",
+	"runOnStartup":	false,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}
