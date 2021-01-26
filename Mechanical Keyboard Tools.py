@@ -30,7 +30,6 @@ def run(context):
         cmdDef2 = ui.commandDefinitions.itemById('edit_keyboard_layout')
         if cmdDef1:
             cmdDef1.deleteMe()
-
         if cmdDef2:
             cmdDef2.deleteMe()
         

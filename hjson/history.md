@@ -1,0 +1,39 @@
+# History
+
+- v3.0.2
+  - Use relative import
+  - Fix empty multiline strings
+- v3.0.1
+  - change hjson (cli tool) to use unicode
+- v3.0.0
+  - add support for single quoted strings
+- v2.0.7
+  - multiline strings allow tabs
+- v2.0.6
+  - add support for blank and comment only files
+- v2.0.5
+  - fix stringify for strings staring with a punctuator char
+- v2.0.2
+  - fix err on bad ML string
+- v2.0.1
+  - move to hjson org
+- v2.0.0
+  - fix quoteless string starting with punctuator
+- v1.5.8
+  - add CLI scripts for pip
+- v1.5.6
+  - fix dump for comment tokens in keyname
+- v1.5.4
+  - fix decode/encode single JSON value files
+- v1.5.3
+  - fix trailing whitespace in keyname
+- v1.5.2
+  - fix trailing space in quoteless strings
+- v1.5.1
+  - better error messages & root check
+- v1.5.0
+  - Added support for optional root braces
+- v1.4.1
+  - Added documentation, links.
+- v1.4.0
+  - First release.
