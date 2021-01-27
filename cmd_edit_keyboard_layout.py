@@ -44,6 +44,7 @@ def check_high_level_structure(layout_input):
 
 def parse_layout_input(input_text, parse_results_text_box=None):
     def put_parse_msg(msg):
+        print(msg)
         if parse_results_text_box is not None:
             parse_results_text_box.text = msg
 
@@ -64,7 +65,7 @@ def parse_layout_input(input_text, parse_results_text_box=None):
             hjson_parsed_object = hjson.loads(input_text)
             check_high_level_structure(hjson_parsed_object)
             put_parse_msg('Parsed OK')
-            print('Parsed as:',hjson_parsed_object)
+            #print('Parsed as:',hjson_parsed_object)
         except Exception as e:
             print("Couldn't parse as a hjson object, will try to parse as a list next..")
             print(e)
@@ -73,7 +74,7 @@ def parse_layout_input(input_text, parse_results_text_box=None):
                 hjson_parsed_object = hjson.loads(input_text)
                 check_high_level_structure(hjson_parsed_object)
                 put_parse_msg('Parsed OK as list')
-                print('Parsed as:',hjson_parsed_object)
+                #print('Parsed as:',hjson_parsed_object)
             except Exception as e:
                 put_parse_msg('Exception Parsing as list: %s'%(e,))
                 print(e)
@@ -150,8 +151,8 @@ class EditKeyboardLayoutExecuteHandler(adsk.core.CommandEventHandler):
         parsed_layout = parse_layout_input(input_text)
         print('Parsed Layout: \n',parsed_layout)
         expanded_layout = expand_layout_list(parsed_layout)
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(expanded_layout)
+        #pp = pprint.PrettyPrinter(indent=4)
+        #pp.pprint(expanded_layout)
 
         sketchPoints = selected_sketch.sketchPoints
         lines = selected_sketch.sketchCurves.sketchLines;
