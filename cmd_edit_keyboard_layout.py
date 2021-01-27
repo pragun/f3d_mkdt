@@ -20,6 +20,7 @@ unit_size_id = 'unit_size_id'
 validate = 'validate_button_id'
 parse_results_text_box_id = 'parse_results_text_box_id'
 sketch_input_id = 'sketch_plane_selection_id'
+use_construction_lines_id ='use_construction_lines_id'
 
 handlers = []
 
@@ -102,8 +103,11 @@ class EditKeyboardLayoutCreatedEventHandler(adsk.core.CommandCreatedEventHandler
         layout_text_box_input = inputs.addTextBoxCommandInput(layout_text_box_id,'Keyboard Layout \n(as used at http://www.keyboard-layout-editor.com/)','',15,False)
         parse_results_text_box = inputs.addTextBoxCommandInput(parse_results_text_box_id,'Parse Results:', '', 3, True)
         sketch_input = inputs.addSelectionInput(sketch_input_id,'Select Sketch to Add Generated Keyboard Layout Onto', 'Select a sketch to create a keyboard layout sketch into')
+        construction_lines_input = inputs.addBoolValueInput(use_construction_lines_id,"Use Construction Lines in Sketch\n(better performance)",True,'',True)
+
         sketch_input.addSelectionFilter('Sketches')
         sketch_input.setSelectionLimits(0,1)
+
 
         # Connect to the execute event.
         #onActivateInputs = SelectSingleKeyComponentsActivateHandler()
@@ -133,8 +137,11 @@ class EditKeyboardLayoutExecuteHandler(adsk.core.CommandEventHandler):
         layout_input_text = inputs.itemById(layout_text_box_id)
         unit_size_input = inputs.itemById(unit_size_id)
         sketch_input = inputs.itemById(sketch_input_id)
-        input_text = html.unescape(layout_input_text.text)
+        use_construction_lines_input = inputs.itemById(use_construction_lines_id)
+        use_construction_lines = use_construction_lines_input.value
 
+        input_text = html.unescape(layout_input_text.text)
+        
         unit_value = unit_size_input.value
 
         selected_sketch = sketch_input.selection(0).entity
@@ -167,12 +174,16 @@ class EditKeyboardLayoutExecuteHandler(adsk.core.CommandEventHandler):
             del_y = item['h']*math.cos(angle_rad)
             x = x + (unit_value*del_x)
             y = y + (unit_value*del_y)
-            lower_diagnoal_point = adsk.core.Point3D.create(x, -y, 0)
+            lower_diagonal_point = adsk.core.Point3D.create(x, -y, 0)
 
             recLines = lines.addThreePointRectangle( corner_point,
                                 adjacent_top_point,
-                                lower_diagnoal_point)
-            
+                                lower_diagonal_point)
+
+            if use_construction_lines:
+                for k in range(recLines.count):
+                    recLines.item(k).isConstruction = True
+
 
 
 class EditKeyboardLayoutValidateInputsHandler(adsk.core.ValidateInputsEventHandler):
