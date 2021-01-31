@@ -68,7 +68,7 @@ class MapComponentOverPointsExecuteHandler(adsk.core.CommandEventHandler):
         print("In Execute:")
         app = adsk.core.Application.get()
         design = adsk.fusion.Design.cast(app.activeProduct)
-        root = design.rootComponent
+        root = design.activeComponent
         occurrences = root.occurrences
 
         eventArgs = adsk.core.CommandEventArgs.cast(args)
@@ -80,6 +80,10 @@ class MapComponentOverPointsExecuteHandler(adsk.core.CommandEventHandler):
         sketch_input = inputs.itemById(sketch_input_id)
 
         sketch = sketch_input.selection(0).entity
+        x_direction = sketch.xDirection
+        y_direction = sketch.yDirection
+        z_direction = x_direction.crossProduct(y_direction)
+
         occurrence = component_input.selection(0).entity
         user_text = filter_text_input.text
         filter_dict = gen_filter_dict(user_text)
@@ -89,11 +93,33 @@ class MapComponentOverPointsExecuteHandler(adsk.core.CommandEventHandler):
         component = occurrence.component
 
         for matched_point in matched_points:
-            tmp_3d_matrix = adsk.core.Matrix3D.create()
-            tmp_3d_vector = adsk.core.Vector3D.create(matched_point.geometry.x,matched_point.geometry.y,matched_point.geometry.z)
-            tmp_3d_matrix.translation = tmp_3d_vector
-            occurrences.addExistingComponent(component, tmp_3d_matrix)
+            rot_angle = - math.radians(get_rotation_angle_from_sketchpoint_attributes(matched_point))
+            # why the minus? 
+            # Its becasue the co-ordiniate system used in creating keyboard layouts
+            # Y is positive going downwards
 
+            placement_3d_matrix = adsk.core.Matrix3D.create()
+            translate_3d_vector = adsk.core.Vector3D.create(matched_point.geometry.x,matched_point.geometry.y,matched_point.geometry.z)
+            placement_3d_matrix.translation = translate_3d_vector
+
+            rotation_matrix = adsk.core.Matrix3D.create()
+            rotation_matrix.setToRotation(rot_angle,z_direction,matched_point.geometry)
+            placement_3d_matrix.transformBy(rotation_matrix)
+
+            new_occurrence = occurrences.addExistingComponent(component, placement_3d_matrix)
+
+            
+
+
+
+def get_rotation_angle_from_sketchpoint_attributes(sketchpoint):
+    r = 0
+    attrib_dict = create_attrib_dict(attribute_group_name,sketchpoint)
+    if 'key_data' in attrib_dict:
+        key_data = attrib_dict['key_data']
+        if 'r' in key_data:
+            r = key_data['r']
+    return r
 
 
 def gen_filter_dict(text):
