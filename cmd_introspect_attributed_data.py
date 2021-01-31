@@ -125,18 +125,19 @@ class IntrospectEntityExecuteHandler(adsk.core.CommandEventHandler):
         attributes = selected_entity.attributes
 
         for key in keys_to_be_updated:
-            value = user_input_dict[key]
+            value = hjson.dumps(user_input_dict[key])
             keyed_attrib = attributes.itemByName(gp_name,key)
+            #print("1:",keyed_attrib)
             if keyed_attrib is None:
-                attributes.add(gp_name,key,value)
-
+                retval = attributes.add(gp_name,key,value)
+                #print("2:", retval)
             keyed_attrib.value = value
 
         for key in keys_to_be_deleted:
             keyed_attrib = attributes.itemByName(gp_name,key)
             if keyed_attrib is None:
                 raise Exception("Attribute for name:%s, group_name:%s not found."%(key,gp_name))
-
+            #print("3:",keyed_attrib)
             keyed_attrib.deleteMe()
 
         #parse_results_text_box = inputs.itemById(parse_results_text_box_id)
