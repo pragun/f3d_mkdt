@@ -3,7 +3,7 @@
 ### What does this Add-In do?
 1. It accepts the same syntax as used by the famous [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/) to generate a Sketch within
 Fusion 360 with the placement information & metadata for each key.
-[[https://github.com/pragun/f3d_mech_kbrd_addin/blob/master/assets/img/gen_keyboard_layout.png|alt=Generate Keyboard Layout]]
+![Generate Keyboard Layout](https://github.com/pragun/f3d_mech_kbrd_addin/blob/master/assets/img/gen_keyboard_layout.png)
 
 2. It Adds-In the much missing functionality as offered by other CAD programs under names such as "Sketch Driven Component Placement", "Sketch Driven Pattern", etc
 to broadcast YOUR chosen components at the key-positions specified in the layout.
