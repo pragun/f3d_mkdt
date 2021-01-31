@@ -57,42 +57,6 @@ class IntrospectEntityCreatedEventHandler(adsk.core.CommandCreatedEventHandler):
         cmd.execute.add(onExecute)
         handlers.append(onExecute)
 
-def create_user_input_dict(user_input_text):
-    html_escaped_txt = html.unescape(user_input_text)
-    return hjson.loads(html_escaped_txt,object_pairs_hook=dict)
-
-def create_attrib_dict(gp_name, selected_entity):
-    attributes = selected_entity.attributes
-    cnt = attributes.count
-    attrib_dict = {}
-    for i in range(cnt):
-        attrib = attributes.item(i)
-        if gp_name == attrib.groupName:
-            try:
-                attrib_dict[attrib.name] = hjson.loads(attrib.value)
-            except Exception as e:
-                attrib_dict[attrib.name] = attrib.value
-
-    return attrib_dict
-
-def compare_user_input_attrib_data(user_input_dict,attrib_dict):
-    user_input_keys = set(user_input_dict.keys())
-    attrib_keys = set(attrib_dict.keys())
-
-    keys_to_be_updated = user_input_keys
-    keys_to_be_deleted = attrib_keys - user_input_keys
-    keys_unchanged = set([])
-
-    for key in keys_to_be_updated:
-        if key in attrib_dict:
-            if user_input_dict[key] == attrib_dict[key]:
-                keys_unchanged.add(key)
-
-    keys_to_be_updated = keys_to_be_updated - keys_unchanged
-
-    return (keys_unchanged, keys_to_be_updated, keys_to_be_deleted)
-
-
 # Event handler for the execute event.
 class IntrospectEntityExecuteHandler(adsk.core.CommandEventHandler):
     def __init__(self):
