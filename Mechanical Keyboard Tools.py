@@ -38,7 +38,7 @@ def run(context):
         if cmdDef3:
             cmdDef3.deleteMe()
         
-        cmdDef1 = ui.commandDefinitions.addButtonDefinition('map_components_over_points', 'Map Components over Sketch Points', 'Map Components over Sketch Points')
+        cmdDef1 = ui.commandDefinitions.addButtonDefinition('map_components_over_points', 'BroadCast Components over Sketch Points', 'BroadCast Components over Sketch Points')
         cmdDef2 = ui.commandDefinitions.addButtonDefinition('edit_keyboard_layout', 'Edit Keyboard Layout', 'Edit Keyboard Layout')
         cmdDef3 = ui.commandDefinitions.addButtonDefinition('introspect_attribute_data', 'Introspect Attributed Data', 'Introspect Attributed Data')
 
@@ -59,7 +59,7 @@ def run(context):
         tbPanel.controls.addCommand(cmdDef2)
         tbPanel.controls.addCommand(cmdDef3)
 
-        ui.messageBox('Mechanical Keyboard Design Tools Add-In Started')
+        ui.messageBox('Mechanical Keyboard Design Tools Add-In Started.')
 
     except:
         if ui:
@@ -74,7 +74,7 @@ def stop(context):
         if tbPanel:
             tbPanel.deleteMe()
         
-        ui.messageBox('Stop addin')
+        ui.messageBox('Mechanical Keyboard Design Tools Add-In Stopped.')
 
     except:
         if ui:
