@@ -5,6 +5,7 @@ import adsk.core, adsk.fusion, adsk.cam, traceback
 import json, re 
 from .cmd_associate_identifier_with_component import *
 from .cmd_edit_keyboard_layout import *
+from .cmd_introspect_attributed_data import *
 
 handlers = []
 
@@ -28,13 +29,17 @@ def run(context):
         #Empty panel can't be displayed. Add a command to the panel
         cmdDef1 = ui.commandDefinitions.itemById('select_single_key_components')
         cmdDef2 = ui.commandDefinitions.itemById('edit_keyboard_layout')
+        cmdDef3 = ui.commandDefinitions.itemById('introspect_attribute_data')
         if cmdDef1:
             cmdDef1.deleteMe()
         if cmdDef2:
             cmdDef2.deleteMe()
+        if cmdDef3:
+            cmdDef3.deleteMe()
         
         cmdDef1 = ui.commandDefinitions.addButtonDefinition('select_single_key_components', 'Select Components for Single Key', 'Associate components in the documen with Key-Identifiers')
         cmdDef2 = ui.commandDefinitions.addButtonDefinition('edit_keyboard_layout', 'Edit Keyboard Layout', 'Edit Keyboard Layout')
+        cmdDef3 = ui.commandDefinitions.addButtonDefinition('introspect_attribute_data', 'Introspect Attributed Data', 'Introspect Attributed Data')
 
         # Connect to the command created event.
         associate_identifier_with_key_cmd_created = SelectSingleKeyComponentsCreatedEventHandler()
@@ -44,9 +49,14 @@ def run(context):
         edit_keyboard_layout_cmd_created = EditKeyboardLayoutCreatedEventHandler()
         cmdDef2.commandCreated.add(edit_keyboard_layout_cmd_created)
         handlers.append(edit_keyboard_layout_cmd_created)
+
+        introspect_attributed_data_cmd_created = IntrospectEntityCreatedEventHandler()
+        cmdDef3.commandCreated.add(introspect_attributed_data_cmd_created)
+        handlers.append(introspect_attributed_data_cmd_created)
         
         tbPanel.controls.addCommand(cmdDef1)
         tbPanel.controls.addCommand(cmdDef2)
+        tbPanel.controls.addCommand(cmdDef3)
 
         ui.messageBox('Mechanical Keyboard Design Tools Add-In Started')
 

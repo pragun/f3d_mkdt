@@ -162,6 +162,9 @@ class EditKeyboardLayoutExecuteHandler(adsk.core.CommandEventHandler):
             x = unit_value * (item['rx'] + (item['x']*math.cos(angle_rad) - item['y']*math.sin(angle_rad)))
             y = unit_value * (item['ry'] + (item['y']*math.cos(angle_rad) + item['x']*math.sin(angle_rad)))
 
+            corner_x = x
+            corner_y = y
+
             corner_point = adsk.core.Point3D.create(x, -y, 0)
             del_x = item['w']*math.cos(angle_rad)
             del_y = item['w']*math.sin(angle_rad)
@@ -177,9 +180,19 @@ class EditKeyboardLayoutExecuteHandler(adsk.core.CommandEventHandler):
             y = y + (unit_value*del_y)
             lower_diagonal_point = adsk.core.Point3D.create(x, -y, 0)
 
+            center_x = (corner_x + x )/2.0
+            center_y = (corner_y + y )/2.0
+
+            center_point = adsk.core.Point3D.create(center_x,-center_y,0)
+            center_sketch_point = sketchPoints.add(center_point)
+
+            center_sketch_point.attributes.add(attribute_group_name , key_data_attrib_name, json.dumps(item))
+
             recLines = lines.addThreePointRectangle( corner_point,
                                 adjacent_top_point,
                                 lower_diagonal_point)
+
+            
 
             if use_construction_lines:
                 for k in range(recLines.count):
