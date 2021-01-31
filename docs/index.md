@@ -7,10 +7,10 @@ Fusion 360 with the placement information & metadata for each key.
 2. It Adds-In the much missing functionality as offered by other CAD programs under names such as "Sketch Driven Component Placement", "Sketch Driven Pattern", etc
 to broadcast YOUR chosen components at the key-positions specified in the layout.
 
-3. Plus+. It adds-in the ability to filter which points does each component gets broadcasted to. So, your custom designed sub-assembly for 2u keys will only be broadcasted to
-appropriately sized keys. 
+3. Plus+. It adds-in the ability to filter the points that each component gets broadcasted to. So, your custom designed sub-assembly for 2u keys will only be broadcasted to
+appropriately sized keys. I personally feel that this little bit is a really cool way of doing CAD things programatically.
 
-#### How would it do that?
+#### How would it do the point-filtering thing?
 You'd provide the filter input in the simplest JSON dictionary possible.
 
 ### Gosh, why did you write an Add-In when there are atleast 10 tools out there to generate Keyboard layouts?

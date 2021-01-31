@@ -39,7 +39,7 @@ def run(context):
             cmdDef3.deleteMe()
         
         cmdDef1 = ui.commandDefinitions.addButtonDefinition('map_components_over_points', 'BroadCast Components over Sketch Points', 'BroadCast Components over Sketch Points')
-        cmdDef2 = ui.commandDefinitions.addButtonDefinition('edit_keyboard_layout', 'Edit Keyboard Layout', 'Edit Keyboard Layout')
+        cmdDef2 = ui.commandDefinitions.addButtonDefinition('edit_keyboard_layout', 'Generate Keyboard Layout', 'Generate Keyboard Layout')
         cmdDef3 = ui.commandDefinitions.addButtonDefinition('introspect_attribute_data', 'Introspect Attributed Data', 'Introspect Attributed Data')
 
         # Connect to the command created event.
