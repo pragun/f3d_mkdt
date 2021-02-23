@@ -13,7 +13,7 @@ appropriately sized keys. I personally feel that this little bit is a really coo
 
 
 ### Recommended Workflow for using this AddIn
-Please don't forget to checkout the examples in the [wiki](/wiki).
+Please don't forget to checkout the examples in the [wiki](https://github.com/pragun/f3d_mech_kbrd_addin/wiki).
 1. Please spend some quality time with the famous [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/.)
 2. Create a keyboard layout you really like.
 3. Copy that raw-data (from Keyboard Layout Editor) and bring it into Fusion 360 using the "Generate Keyboard Layout" command. link to come soon.
