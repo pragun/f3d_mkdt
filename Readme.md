@@ -12,8 +12,8 @@ to broadcast YOUR chosen components at the key-positions specified in the layout
 appropriately sized keys. I personally feel that this little bit is a really cool way of doing CAD things programatically.
 
 
-### Recommended AddIn for designing your own mechanical keyboard
-
+### Recommended Workflow for using this AddIn
+Please don't forget to checkout the examples in the [wiki](/wiki).
 1. Please spend some quality time with the famous [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/.)
 2. Create a keyboard layout you really like.
 3. Copy that raw-data (from Keyboard Layout Editor) and bring it into Fusion 360 using the "Generate Keyboard Layout" command. link to come soon.
