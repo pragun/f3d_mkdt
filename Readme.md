@@ -1,12 +1,12 @@
 ### What does this Add-In do?
 1. It accepts the same syntax as used by the famous [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/) to generate a Sketch within
 Fusion 360 with position information & metadata for each key.
-![gen_keyboard_layout](wiki/images/gen_keyboard_layout.png)
+![gen_keyboard_layout](https://github.com/pragun/f3d_mech_kbrd_addin/wiki/images/gen_keyboard_layout.png)
 
 2. It *Adds-In* much missing functionality as offered by other CAD programs under names such as "Sketch Driven Component Placement", "Sketch Driven Pattern", etc
 to broadcast YOUR chosen components at the key-positions specified in the layout.
-![Broadcast Squares to 1u keys](wiki/images/broad_cast_1.png)
-![Broadcast Spheres to 1.25u keys](wiki/images/broad_cast_2.png)
+![Broadcast Squares to 1u keys](https://github.com/pragun/f3d_mech_kbrd_addin/wiki/images/broad_cast_1.png)
+![Broadcast Spheres to 1.25u keys](https://github.com/pragun/f3d_mech_kbrd_addin/wiki/images/broad_cast_2.png)
 
 3. Plus+. It *Adds-in* the ability to filter the points that each component gets broadcasted to. So, your custom designed sub-assembly for 2u keys will only be broadcasted to
 appropriately sized keys. I personally feel that this little bit is a really cool way of doing CAD things programatically.
