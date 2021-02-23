@@ -23,6 +23,18 @@ Please don't forget to checkout the examples in the [wiki](https://github.com/pr
 7. Broadcast these components to their appropriate places using the "Broadcast Components over Sketch Points". link to come soon.
 8. Select appropriate plate-sub-components and merge them using Fusion's "Combine" command. 
 
+### Install Instructions
+1. Download/Clone. If you use git then go ahead and clone this repo, otherwise you're welcome to download this repo using this [link](https://github.com/pragun/f3d_mech_kbrd_addin/archive/master.zip)
+2. Unzip the downloaded archive. For the next steps, I'll assume that you have extracted the archive at C:\Downloads\f3d_mech_kbrd_addin-master
+3. Add AddIn into Fusion 360. Go to Fusion 360 > Tools > ADD-INS (You can click on the big button that has a small grey gear icon on it)
+4. Select the Add-Ins tab and click on the green + icon, right after "My Add-Ins"
+5. Open the path where you extracted the downloaded zip file (as in step 2. For example: C:\Downloads\f3d_mech_kbrd_addin-master)
+6. You should see a new entry appear under "My Add-Ins" called "Mechanical Keyboard Tools"
+7. Go ahead, select it and click on Run.
+8. You should see a pop-up reading "Mechanical Keyboard Design Tools Add-In Started".
+ 
+
+
 ### Why yet another Keyboard layout tool?
 I have been toying with a split-type keyboard design in my mind. I used several keyboard layout
 generators to generate dxf/svg files. I did not want to send out the dxf/svg files to an online service, and pay $$$$$ for steel/acrylic plates. 
