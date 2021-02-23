@@ -19,6 +19,7 @@ sketch_input_id = 'sketch_input_id'
 component_input_id = 'component_input_id'
 output_text_id = 'output_text_id'
 filter_text_id = 'filter_text_id'
+keep_orientation_input_id = 'keep_orientation_id'
 
 handlers = []
 
@@ -44,6 +45,7 @@ class MapComponentOverPointsCreatedEventHandler(adsk.core.CommandCreatedEventHan
         component_input = inputs.addSelectionInput(component_input_id,'Select Component for Mapping over Points','Select Component for Mapping over Points')
         filter_text_input = inputs.addTextBoxCommandInput(filter_text_id,"Filter Value",'',5,False)
         output_text_input = inputs.addTextBoxCommandInput(output_text_id,'Command Pre-Output:','',5,True)
+        keep_orientation_input = inputs.addBoolValueInput(keep_orientation_input_id,'Keep Current Orientation',True,'',True)
         
         sketch_input.addSelectionFilter('Sketches')
         sketch_input.setSelectionLimits(0,1)
@@ -78,6 +80,9 @@ class MapComponentOverPointsExecuteHandler(adsk.core.CommandEventHandler):
         filter_text_input = inputs.itemById(filter_text_id)
         component_input = inputs.itemById(component_input_id)
         sketch_input = inputs.itemById(sketch_input_id)
+        keep_orientation_input = inputs.itemById(keep_orientation_input_id)
+
+        keep_orientation = keep_orientation_input.value
 
         sketch = sketch_input.selection(0).entity
         x_direction = sketch.xDirection
@@ -91,14 +96,17 @@ class MapComponentOverPointsExecuteHandler(adsk.core.CommandEventHandler):
         matched_points = get_matching_sketchpoints(sketch,filter_dict)    
         print("Matched %d points in sketch."%(len(matched_points,)))
         component = occurrence.component
-
+        
         for matched_point in matched_points:
             rot_angle = - math.radians(get_rotation_angle_from_sketchpoint_attributes(matched_point))
             # why the minus? 
             # Its becasue the co-ordiniate system used in creating keyboard layouts
             # Y is positive going downwards
-
+            
             placement_3d_matrix = adsk.core.Matrix3D.create()
+            if keep_orientation:
+                placement_3d_matrix = occurrence.transform.copy()
+            
             translate_3d_vector = adsk.core.Vector3D.create(matched_point.geometry.x,matched_point.geometry.y,matched_point.geometry.z)
             placement_3d_matrix.translation = translate_3d_vector
 
@@ -155,6 +163,7 @@ class MapComponentOverPointsValidateInputsHandler(adsk.core.ValidateInputsEventH
         filter_text_input = inputs.itemById(filter_text_id)
         component_input = inputs.itemById(component_input_id)
         sketch_input = inputs.itemById(sketch_input_id)
+        keep_orientation_input = inputs.itemById(keep_orientation_input_id)
 
         if sketch_input.selectionCount > 0 and component_input.selectionCount > 0:
             sketch = sketch_input.selection(0).entity
