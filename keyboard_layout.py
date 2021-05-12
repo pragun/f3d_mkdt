@@ -30,12 +30,12 @@ class KeyParameters(object):
             setattr(self,key,i_dict[key])
 
     def process_input(self,i_dict):
-        for i in ['x','y']:
-            self.check_add(i, i_dict)
-
         for i in ['rx','ry','r']:
             if i in i_dict:
                 self.y = 0
+                
+        for i in ['x','y']:
+            self.check_add(i, i_dict)
                 
         for i in ['rx','ry','r','w','h']:
             self.check_set(i,i_dict)
