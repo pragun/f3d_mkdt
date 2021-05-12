@@ -1,2 +1,5 @@
 __pycache__/
 
+.env
+.vscode/settings.json
+__pycache__/common_defs.cpython-37.pyc
