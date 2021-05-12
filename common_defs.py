@@ -15,6 +15,7 @@ default_key_style_identifiers = ['1u', '1.25u', '1.5u', '1.75u', '2u', '2.25u', 
 attribute_group_name = 'mechKbrdTools'
 identifiers_attrib_name = 'key_style'
 key_data_attrib_name = 'key_data'
+broadcast_key = 'key_data'
 
 unit_size = 'keyboard_unit_size_definition'
 layout = 'keyboard_layout'

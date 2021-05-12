@@ -131,7 +131,7 @@ def get_rotation_angle_from_sketchpoint_attributes(sketchpoint):
 
 
 def gen_filter_dict(text):
-    return create_user_input_dict('{' + text + '}')
+    return {broadcast_key:create_user_input_dict(text)}
 
 def get_matching_sketchpoints(sketch,filter_dict):
     sketchpoints = sketch.sketchPoints
@@ -150,6 +150,7 @@ class MapComponentOverPointsValidateInputsHandler(adsk.core.ValidateInputsEventH
         #self.already_loaded_attributes = False
         self.last_validated_user_text = ''
         self.inputs_valid = False
+        self.last_selected_component = None
         #self.last_selected_entity = None
 
     def notify(self, args):
@@ -165,9 +166,19 @@ class MapComponentOverPointsValidateInputsHandler(adsk.core.ValidateInputsEventH
         sketch_input = inputs.itemById(sketch_input_id)
         keep_orientation_input = inputs.itemById(keep_orientation_input_id)
 
+        if component_input.selectionCount > 0:
+            component = component_input.selection(0).entity
+            if component != self.last_selected_component:
+                self.last_selected_component = component
+                if hasattr(component,'attributes'):
+                    attrib_dict = create_attrib_dict(attribute_group_name, component)
+                    if broadcast_key in attrib_dict.keys():
+                        filter_text_input.text = hjson.dumps(attrib_dict[broadcast_key])
+
         if sketch_input.selectionCount > 0 and component_input.selectionCount > 0:
             sketch = sketch_input.selection(0).entity
             component = component_input.selection(0).entity
+
             user_text = filter_text_input.text
             if user_text != self.last_validated_user_text:
                 self.last_validated_user_text = user_text
